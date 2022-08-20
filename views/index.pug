@@ -1,0 +1,65 @@
+extends layout
+
+block content
+  header
+    div
+        div.logo
+          img(src="images/Food_Blog_Logo.webp")
+        div.social
+          a(class="fa fa-facebook" href="#")
+          a(class="fa fa-instagram" href="#")
+          a(class="fa fa-twitter" href="#")
+    nav
+      ul
+        li
+          a(href='/') Home
+        li |
+        li
+          a(href='#') Contact
+        li |
+        li
+          a(href='/login') Login
+        li
+          a(href='/register') Register
+  main
+    if path === "/register"
+      include form.pug
+    else if path === "/thankyou"
+      include thankyou.pug
+    else if path === "/login"
+      include login.pug
+    else 
+      div.gallery#gallery
+        img(src="images/Food-pic1.jpeg")
+        img(src="images/Food-pic2.jpeg")
+        img(src="images/Food-pic3.jpeg")
+      div.recipes#recipes
+          div.recipe1
+            div
+              img(src="images/Food-pic1.jpeg")
+            div
+              p Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis aspernatur omnis officia corrupti est quidem delectus architecto, labore enim, eos dolore possimus totam nemo veniam molestias velit, natus quod laudantium!
+          div.recipe2
+            div
+              img(src="images/Food-pic2.jpeg")
+            div
+              p Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis aspernatur omnis officia corrupti est quidem delectus architecto, labore enim, eos dolore possimus totam nemo veniam molestias velit, natus quod laudantium!
+    //- section#intro-text
+    //-   div
+    //-     span Simple Kitchen
+    //-     h3
+    //-       | Simple &amp; Comforting 
+    //-       br
+    //-       |             Recipes All Year Round
+    //-     if path === "/"
+    //-       p Pan-seared chicken, Grill shrimp, mac &amp; cheese&mdash;need we say more?
+    //-       button.submit-buttton View Recipes
+    //- section#intro-image
+    //-   if path === "/register"
+    //-     include form.pug
+    //-   else if path === "/thankyou"
+    //-     include thankyou.pug
+    //-   else 
+    //-     img(src='images/louisiana-barbecued-shrimp.webp' alt='Louisiana Barbecued Shrimp')
+  footer
+    | &copy; Copyright 2022 Miao Shi

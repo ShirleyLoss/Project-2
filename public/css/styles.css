@@ -1,0 +1,297 @@
+/* Nesting */
+/* SCSS */
+nav {
+  margin: 1em;
+  font-size: 1em;
+  font-weight: bold;
+}
+nav ul {
+  list-style-type: none;
+  display: flex;
+  padding-right: 40px;
+}
+nav ul li {
+  margin: 0 5px 0 0;
+  color: rgb(255, 255, 255);
+}
+nav ul li a {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+}
+nav ul li a:hover {
+  text-decoration: underline;
+}
+nav ul li:last-child {
+  flex-grow: 2;
+  text-align: right;
+}
+
+/* css for registration form and errors*/
+/* Styles for listing table */
+body {
+  padding: 40px 10px;
+  background-color: #eee;
+}
+
+.listing-reg h1 {
+  text-align: center;
+  margin: 0 0 2rem;
+}
+
+.form-registration {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+.form-registration input {
+  width: 100%;
+  margin: 0px 0 10px;
+}
+.form-registration .submit-button {
+  border: none;
+  background-color: pink;
+  color: rgb(255, 255, 255);
+  padding: 5px;
+  margin-top: 20px;
+}
+
+.my-errors {
+  margin: 0 auto;
+  margin-bottom: 20px;
+  padding: 0;
+  list-style: none;
+  color: #333;
+  font-size: 1.2rem;
+  display: table;
+}
+.my-errors li:before {
+  content: "! Error : ";
+  color: #f00;
+  font-weight: bold;
+}
+
+.listing-table {
+  width: 100%;
+}
+.listing-table th {
+  padding: 10px;
+  border-bottom: 1px solid #666;
+  background: #000;
+  color: #fff;
+}
+.listing-table th:first-child {
+  border-right: 1px solid #666;
+}
+.listing-table td {
+  padding: 10px;
+  border-bottom: 1px solid #666;
+}
+.listing-table td:first-child {
+  border-right: 1px solid #666;
+}
+
+.form-title {
+  text-align: center;
+  font-weight: 700;
+}
+
+/* css for registration form and errors*/
+/* Styles for listing table */
+body {
+  padding: 40px 10px;
+  background-color: #eee;
+}
+
+.listing-reg h1 {
+  text-align: center;
+  margin: 0 0 2rem;
+}
+
+.form-login {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+.form-login input {
+  width: 100%;
+  margin: 0px 0 10px;
+}
+.form-login .submit-button {
+  border: none;
+  background-color: pink;
+  color: rgb(255, 255, 255);
+  padding: 5px;
+  margin-top: 20px;
+}
+
+.my-errors {
+  margin: 0 auto;
+  margin-bottom: 20px;
+  padding: 0;
+  list-style: none;
+  color: #333;
+  font-size: 1.2rem;
+  display: table;
+}
+.my-errors li:before {
+  content: "! Error : ";
+  color: #f00;
+  font-weight: bold;
+}
+
+.listing-table {
+  width: 100%;
+}
+.listing-table th {
+  padding: 10px;
+  border-bottom: 1px solid #666;
+  background: #000;
+  color: #fff;
+}
+.listing-table th:first-child {
+  border-right: 1px solid #666;
+}
+.listing-table td {
+  padding: 10px;
+  border-bottom: 1px solid #666;
+}
+.listing-table td:first-child {
+  border-right: 1px solid #666;
+}
+
+.form-title {
+  text-align: center;
+  font-weight: 700;
+}
+
+/* Variables */
+html {
+  font-size: 1em;
+}
+
+body {
+  font-family: Arial, Helvetica, Sans-Serif;
+  background: pink;
+}
+
+header {
+  height: 320px;
+  margin: 0.8em auto 1em auto;
+}
+header div {
+  margin: 1% 2%;
+  height: 250px;
+  display: flex;
+}
+header div .logo {
+  height: 200px;
+}
+header div .logo img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+header div .social {
+  width: 250px;
+  height: 200px;
+  display: inline-block;
+  flex-grow: 2;
+  text-align: right;
+}
+header div .social .fa {
+  padding-top: 1em;
+  font-size: 20px;
+  width: 3em;
+  height: 3em;
+  text-align: center;
+  -webkit-text-decoration: None;
+          text-decoration: None;
+  margin: 0 0.25em;
+  border-radius: 50%;
+}
+header div .social .fa:hover {
+  opacity: 0.7;
+}
+header div .social .fa-facebook {
+  background: #3B5998;
+  color: white;
+  position: relative;
+  top: 35%;
+}
+header div .social .fa-twitter {
+  background: #55ACEE;
+  color: white;
+  position: relative;
+  top: 35%;
+}
+header div .social .fa-instagram {
+  background: #125688;
+  color: white;
+  position: relative;
+  top: 35%;
+}
+
+main {
+  background: rgb(255, 255, 255);
+  width: 1200px;
+  min-height: 535px;
+  padding: 1.5%;
+  margin: 0 auto;
+}
+main .gallery {
+  border: 5px solid lightpink;
+}
+main .gallery img {
+  width: 320px;
+  height: 300px;
+  margin: 1em 1em;
+}
+main .gallery h2 {
+  text-align: center;
+}
+main .recipes div {
+  margin: 1em 0;
+  display: flex;
+}
+main .recipes div div img {
+  width: 320px;
+  height: 300px;
+  margin: 1em 1em;
+}
+main .recipes div div p {
+  margin: auto 1em;
+}
+main .recipes > div {
+  width: 100%;
+}
+main .recipes h3 {
+  font-size: 2em;
+  color: rgb(49, 49, 48);
+}
+main .recipes span {
+  font-family: "Sacramento", cursive;
+  font-size: 2em;
+}
+
+footer {
+  width: 1200px;
+  margin: 2em auto;
+  padding-left: 80px;
+  font-size: 0.85em;
+}
+
+button, .submit-buttton {
+  color: rgb(255, 255, 255);
+  width: 100px;
+  height: 40px;
+  background: pink;
+  margin-top: 2em;
+}
+
+.submit-buttton {
+  border: 1px rgb(49, 49, 48);
+}/*# sourceMappingURL=styles.css.map */
