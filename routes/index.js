@@ -14,10 +14,11 @@ router.get('/', (req, res) => {
   res.render('index', { title: 'home page', path: req.url });
 });
 
-router.get('/home', (req, res) => {
+// router.get('/home', (req, res) => {
   //res.send('It works!');
-  res.render('index', { title: 'home page', path: req.url });
-});
+  // res.render('index', { title: 'home page', path: req.url });
+// });
+// Same as get('/')
 
 router.get('/register', (req, res) => {
   //res.send('It works!');
@@ -80,7 +81,7 @@ router.post('/register',
           function (err, user) {
             if (err) {
               console.log(err);
-              res.rendder("register");
+              res.render("register");
             }
             passport.authenticate("local")(req, res, function(){
               res.redirect("/login");
@@ -99,7 +100,7 @@ router.post('/register',
 
 router.post('/login', 
   passport.authenticate('local', {
-    successRedirect: "/home",
+    successRedirect: "/contact",
     failureRedirect: "/login",
   }),
   function (req, res) {
