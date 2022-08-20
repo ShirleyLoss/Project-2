@@ -29,8 +29,8 @@ app.use(require("morgan")("combined"));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize()); //Removed to show the website
+// app.use(passport.session()); //Removed to show the website. The sequence matter
 app.use(express.static("public"));
 app.use(
     expressSession({
@@ -67,7 +67,7 @@ passport.use(
   })
 );
   
-passport.serializeUser(Registration.serializeUser());
-passport.deserializeUser(Registration.deserializeUser());
+// passport.serializeUser(Registration.serializeUser());
+// passport.deserializeUser(Registration.deserializeUser());
 
 module.exports = app;
