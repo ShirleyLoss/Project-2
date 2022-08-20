@@ -9,23 +9,23 @@ const app = express();
 const expressSession = require('express-session');
 const Registration = mongoose.model('Registration');
 const passportLocal = require("passport-local"); //
-// const rateLimit = require("express-rate-limit");
-// const xss = require("xss-clean");
-// const helmet = require("helmet");
-// const limit = rateLimit({
-//   max: 100,
-//   windowMs: 60 * 60 * 1000,
-//   message: "Too many requests",
-// });
+const rateLimit = require("express-rate-limit");
+const xss = require("xss-clean");
+const helmet = require("helmet");
+const limit = rateLimit({
+  max: 100,
+  windowMs: 60 * 60 * 1000,
+  message: "Too many requests",
+});
 
 const bcrypt = require("bcrypt");
 
-// app.use(helmet());
-// app.use(xss());
-// app.use(mongoSanitize());
-// app.use("/routeName", limit);
-// app.use(express.json({ limit: "10kb" }));
-// app.use(require("morgan")("combined"));
+app.use(helmet());
+app.use(xss());
+app.use(mongoSanitize());
+app.use("/routeName", limit);
+app.use(express.json({ limit: "10kb" }));
+app.use(require("morgan")("combined"));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 app.use(bodyParser.urlencoded({ extended: true }));
