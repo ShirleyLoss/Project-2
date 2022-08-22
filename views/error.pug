@@ -1,0 +1,9 @@
+-user = user || {}
+
+if errors
+    ul.my-errors
+        for error in errors
+            li= error.msg
+
+h3 Invalid information
+a.w-100.btn.btn-primary.mt-3(href="/register") Try Again

@@ -1,0 +1,46 @@
+extends layout
+
+block content
+  header
+    div
+        div.logo
+          img(src="images/Food_Blog_Logo.webp")
+        div.social
+          a(class="fa fa-facebook" href="#")
+          a(class="fa fa-instagram" href="#")
+          a(class="fa fa-twitter" href="#")
+    nav
+      ul
+        li
+          a(href='/blog') Blog
+        li |
+        li
+          a(href='/contact') Contact
+        li |
+        li
+          a(href='/register') Register
+        li
+          a(onclick='clearSession();' href='/logout') Log out
+  main
+    if path === "/contact"
+      include contact.pug
+    else if path === "/logout"
+      include logout.pug
+    else 
+      div.gallery#gallery
+        img(src="images/Food-pic1.jpeg")
+        img(src="images/Food-pic2.jpeg")
+        img(src="images/Food-pic3.jpeg")
+      div.recipes#recipes
+          div.recipe1
+            div
+              img(src="images/Food-pic4.jpeg")
+            div
+              p Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis aspernatur omnis officia corrupti est quidem delectus architecto, labore enim, eos dolore possimus totam nemo veniam molestias velit, natus quod laudantium!
+          div.recipe2
+            div
+              img(src="images/Food-pic5.jpeg")
+            div
+              p Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis aspernatur omnis officia corrupti est quidem delectus architecto, labore enim, eos dolore possimus totam nemo veniam molestias velit, natus quod laudantium!
+  footer
+    | &copy; Copyright 2022 Miao Shi

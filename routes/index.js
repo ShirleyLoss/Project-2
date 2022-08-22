@@ -1,33 +1,73 @@
-const connectEnsureLogin = require('connect-ensure-login');
 const express = require("express");
 const mongoose = require('mongoose');
-const router = express.Router();
 const passport = require('passport');
-
-const bcrypt = require("bcrypt"); //Also in app.js
-const Registration = require('../models/Registration');
-
+const localStrategy = require("passport-local");
+const path = require("path");
+const auth = require("http-auth"); //New Added 8.21.2022
+const bcrypt = require("bcrypt");
+const bodyParser = require('body-parser');
 const { check, validationResult } = require('express-validator');
+const User = require("../models/user"); //New Added 8.21.2022 new created
+const Contact = require("../models/contact"); //New Added 8.21.2022 new created
+const router = express.Router();
+
+const expressSession = require('express-session')({
+  secret: "secret",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: true,
+    secure: true,
+    maxAge: 1 * 60 * 1000,
+  },
+});
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+passport.use(
+  new localStrategy(function (username, password, done) {
+      User.findOne({ username: username }, function (err, user) {
+          if (err) {
+              return done(err);
+          }
+          if (!user) {
+              return done(null, false, { message: "Incorrect username." });
+          }
+          return done(null, user);
+      });
+  })
+);
+
+router.use(bodyParser.urlencoded({ extended: true }));
+router.use(bodyParser.json()); //New Added 8.21.2022
+
+router.use(expressSession);
+
+router.use(passport.initialize());
+router.use(passport.session());
+
+const Registration = mongoose.model('Registration');
+const basic = auth.basic({ //New Added 8.21.2022
+  file: path.join(__dirname, '../users.htpasswd'), //New Added 8.21.2022
+}); //New Added 8.21.2022
+
+router.get("/logout",(req,res)=>{ //New Added 8.21.2022
+  req.logout(function (err) { //New Added 8.21.2022
+      if (err) { //New Added 8.21.2022
+          return next(err); //New Added 8.21.2022
+      } //New Added 8.21.2022
+  }), //New Added 8.21.2022
+  res.render("blog", { title: 'logout page', path: req.url }); //New Added 8.21.2022
+}); //New Added 8.21.2022
 
 router.get('/', (req, res) => {
   //res.send('It works!');
-  res.render('index', { title: 'home page', path: req.url });
+  res.render('index', { title: 'login page', path: req.url });  // Different
 });
-
-// router.get('/home', (req, res) => {
-  //res.send('It works!');
-  // res.render('index', { title: 'home page', path: req.url });
-// });
-// Same as get('/')
 
 router.get('/register', (req, res) => {
   //res.send('It works!');
   res.render('index', { title: 'register page', path: req.url });
-});
-
-router.get('/thankyou', (req, res) => {
-  //res.send('It works!');
-  res.render('index', { title: 'thankyou page', path: req.url, content: "Thank you for your registration!" });
 });
 
 router.get('/login', (req, res) => {
@@ -35,76 +75,98 @@ router.get('/login', (req, res) => {
   res.render('index', { title: 'login page', path: req.url });
 });
 
-router.get('/contact', 
-  connectEnsureLogin.ensureLoggedIn(),
-  function (req, res) {
-    res.render('index');
-  })
+router.get('/thankyou', (req, res) => {
+  //res.send('It works!');
+  res.render('index', { title: 'thankyou page', path: req.url });
+});
 
-// router.get('/registrants', basic.check((req, res) => {
-//   Registration.find()
-//     .then((registrations) => {
-//       res.render('registrants', { title: 'Listing registrations', registrations });
+// router.get('/contact', (req, res) => {
+//     (users) => {
+//       res.render('blog', {
+//         title: 'Listing registrations',
+//         users,
+//         path: req.url
+//       });
+//     }
+// });
+
+// router.get('/contact', basic.check((req, res) => {
+//   User.find()
+//     .then((users) => {
+//       res.render('index', {
+//         title: 'Listing registrations',
+//         users
+//       });
 //     })
-//     .catch(() => { 
-//       res.send('Sorry! Something went wrong.'); 
+//     .catch(() => {
+//       res.send('Sorry! Something went wrong.');
 //     });
 // }));
 
-router.post('/register', 
-    [
-      check('name')
-      .isLength({ min: 1 })
-      .withMessage('Please enter a name'),
-      check('email')
-      .isLength({ min: 1 })
-      .withMessage('Please enter an email'),
-      check('username')
-      .isLength({ min: 1 })
-      .withMessage('Please enter a username'),
-      check('password')
-      .isLength({ min: 1 })
-      .withMessage('Please enter a password')
-    ],
-    (req, res) => {
-      //console.log(req.body);
-      const errors = validationResult(req);
-      if (errors.isEmpty()) {
-        Registration.register(
-          new Registration({
-            name: req.body.name,
-            email: req.body.email,
-            username: req.body.username,
-            password: req.body.password,
-          }),
-          req.body.password,
-          function (err, user) {
-            if (err) {
-              console.log(err);
-              res.render("register");
-            }
-            passport.authenticate("local")(req, res, function(){
-              res.redirect("/login");
-            });
-          }
-        );
-      } else {
-        res.render('index', { 
-            title: 'register page',
-            path: req.url,
-            errors: errors.array(),
-            data: req.body,
-        });
-      }
-    });
+router.get('/logout', (req, res) => {
+  //res.send('It works!');
+  res.render('blog', { title: 'logout page', path: req.url });
+});
 
-router.post('/login', 
-  passport.authenticate('local', {
-    successRedirect: "/contact",
-    failureRedirect: "/login",
-  }),
-  function (req, res) {
-    res.redirect("/");
+router.get('/blog', (req, res) => {
+  //res.send('It works!');
+  res.render('blog', { title: 'blog page', path: req.url });
+});
+
+router.get('/contact', (req, res) => {
+  //res.send('It works!');
+  res.render('blog', { title: 'contact page', path: req.url });
+});
+
+router.post('/login', function(req, res){
+  User.findOne({ username: req.body.username }, function(err, user) {
+    if (err) {
+      res.render("loginerror", { user: user, error: err });
+    }
+    if (!user) {
+        res.render("loginerror", { user: user, error: err });
+    }
+    res.render('blog', { user });
+  });
+});
+
+router.post('/register', 
+  [
+    check('name')
+    .isLength({ min: 1 })
+    .withMessage('Please enter a name'),
+    check('email')
+    .isLength({ min: 1 })
+    .withMessage('Please enter an email'),
+    check('username')
+    .isLength({ min: 1 })
+    .withMessage('Please enter a username'),
+    check('password')
+    .isLength({ min: 1 })
+    .withMessage('Please enter a password')
+  ],
+  async(req, res) => {
+    const salt = await bcrypt.genSalt(10);
+    const hashPassword = await bcrypt.hash(req.body.password, salt);
+    User.register(
+      new User({
+        name: req.body.name,
+        email: req.body.email,
+        username: req.body.username,
+        password: hashPassword,
+      }),
+      req.body.password,
+      function (err, user) {
+        if (err) {
+          console.log(err);
+          res.render("error", { user: user, error: err });
+        } else {
+          passport.authenticate("local")(req, res, function () {
+            res.redirect("/thankyou");
+          });
+        }
+      }
+    );
   }
 );
 

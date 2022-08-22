@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const passportLocalMongoose = require('passport-local-mongoose');
 
-const registrationSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
   name: {
     type: String,
     trim: true,
@@ -18,6 +19,5 @@ const registrationSchema = new mongoose.Schema({
     trim: true,
   },
 });
-
-module.exports = mongoose.model("Registration", registrationSchema);
-
+UserSchema.plugin(passportLocalMongoose);
+module.exports = mongoose.model("User", UserSchema);

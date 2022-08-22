@@ -84,7 +84,7 @@ header {
 main {
     background: $mainColor;
     width: 1200px;
-    min-height: 535px;
+    min-height: 300px;
     padding: 1.5%;
     margin: 0 auto;
     // display: flex;
@@ -134,16 +134,21 @@ main {
       > div {
           width: 100%;
       }
-
-      h3 {
-        font-size: $fontSizeH3;
-        color: $color3;
-      }
-
       span {
         font-family: $fontFamily2;
         font-size: 2em;
       }
+    }
+    h3 {
+      font-size: $fontSizeH3;
+      color: $color3;
+      text-align: center;
+      margin: 1em;
+    }
+    h4 {
+      font-size: $fontSizeH3;
+      color: $color3;
+      text-align: center;
     }
 }
 

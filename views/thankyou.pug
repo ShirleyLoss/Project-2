@@ -1,1 +1,9 @@
-h2= content
+-user = user || {}
+
+if errors
+    ul.my-errors
+        for error in errors
+            li= error.msg
+h3 Thank you for your registration!
+h4 Click below to log in
+a.w-100.btn.btn-primary.mt-3(href="/") Login

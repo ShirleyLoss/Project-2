@@ -1,19 +1,22 @@
-extends layout
+-user = user || {}
 
-block content
+if errors
+    ul.my-errors
+        for error in errors
+            li= error.msg
 
-    if registrations.length
-        table.listing-table.table-dark.table-striped
+if users.length
+    table.listing-table.table-dark.table-striped
+        tr
+            th Name
+            th Email
+            th Username 
+            th Password
+        each registration in registrations
             tr
-                th Name
-                th Email
-                th Username 
-                th Password
-            each registration in registrations
-                tr
-                    td= registration.name
-                    td= registration.email
-                    td= registration.username 
-                    td= registration.password
-    else
-        p No registrations yet :(
+                td= registration.name
+                td= registration.email
+                td= registration.username 
+                td= registration.password
+else
+    p No registrations yet :(
