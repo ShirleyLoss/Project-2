@@ -1,0 +1,14 @@
+{
+    "name": "Hello",
+    "short_name": "Hello",
+    "icons": [{
+      "src": "public/images/hello-icon-512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }],
+    "lang": "en-US",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "white",
+    "theme_color": "white"
+  }
