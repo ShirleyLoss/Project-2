@@ -8,7 +8,6 @@ const bcrypt = require("bcrypt");
 const bodyParser = require('body-parser');
 const { check, validationResult } = require('express-validator');
 const User = require("../models/user"); //New Added 8.21.2022 new created
-const Contact = require("../models/contact"); //New Added 8.21.2022 new created
 const router = express.Router();
 
 const expressSession = require('express-session')({
@@ -17,7 +16,7 @@ const expressSession = require('express-session')({
   saveUninitialized: true,
   cookie: {
     httpOnly: true,
-    secure: true,
+    secure: false,
     maxAge: 1 * 60 * 1000,
   },
 });
@@ -78,34 +77,6 @@ router.get('/login', (req, res) => {
 router.get('/thankyou', (req, res) => {
   //res.send('It works!');
   res.render('index', { title: 'thankyou page', path: req.url });
-});
-
-// router.get('/contact', (req, res) => {
-//     (users) => {
-//       res.render('blog', {
-//         title: 'Listing registrations',
-//         users,
-//         path: req.url
-//       });
-//     }
-// });
-
-// router.get('/contact', basic.check((req, res) => {
-//   User.find()
-//     .then((users) => {
-//       res.render('index', {
-//         title: 'Listing registrations',
-//         users
-//       });
-//     })
-//     .catch(() => {
-//       res.send('Sorry! Something went wrong.');
-//     });
-// }));
-
-router.get('/logout', (req, res) => {
-  //res.send('It works!');
-  res.render('blog', { title: 'logout page', path: req.url });
 });
 
 router.get('/blog', (req, res) => {

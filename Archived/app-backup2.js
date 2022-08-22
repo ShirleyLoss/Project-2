@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const router = require('./routes/index');
+const router = require('../routes/index');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const mongoose = require('mongoose');
